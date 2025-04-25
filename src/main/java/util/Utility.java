@@ -139,7 +139,9 @@ public class Utility {
                 }
                 char c1 = (char) stack.pop();
 
-                if(c=='(' && c1!=')'||c=='{' && c1!='}'||c=='[' && c1!=']'){
+                if ((c == ')' && c1 != '(') ||
+                        (c == '}' && c1 != '{') ||
+                        (c == ']' && c1 != '[')) {
                     return false;
                 }
             }
@@ -147,5 +149,24 @@ public class Utility {
         }
 
         return stack.isEmpty();
+    }
+
+    public static String decimalToBinary(int number) throws StackException {
+        if (number == 0) {
+            return "0";
+        }
+        LinkedStack stack = new LinkedStack();
+
+        while (number > 0) {
+            int remainder = number % 2;
+            stack.push(remainder);
+            number = number / 2;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop().toString());
+        }
+        return sb.toString();
     }
 }
