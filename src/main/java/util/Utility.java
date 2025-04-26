@@ -151,6 +151,7 @@ public class Utility {
         return stack.isEmpty();
     }
 
+    //Conversor de Decimal a Binario
     public static String decimalToBinary(int number) throws StackException {
         if (number == 0) {
             return "0";
@@ -166,6 +167,55 @@ public class Utility {
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             sb.append(stack.pop().toString());
+        }
+        return sb.toString();
+    }
+
+    //Conversor de Decimal a Octal
+    public static String decimalToOctal(int number) throws StackException {
+        if (number == 0) {
+            return "0";
+        }
+        LinkedStack stack = new LinkedStack();
+
+        while (number > 0) {
+            int remainder = number % 8;
+            stack.push(remainder);
+            number = number / 8;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop().toString());
+        }
+        return sb.toString();
+    }
+
+    //Conversor de Decimal a Hexadecimal
+    public static String decimalToHexadecimal(int number) throws StackException {
+        if (number == 0) {
+            return "0";
+        }
+        LinkedStack stack = new LinkedStack();
+
+        while (number > 0) {
+            int remainder = number % 16;
+            if (remainder < 10) {
+                stack.push(remainder);
+            } else {
+                stack.push((char) ('A' + (remainder - 10)));
+            }
+            number = number / 16;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            Object item = stack.pop();
+            if (item instanceof Integer) {
+                sb.append(item.toString());
+            } else if (item instanceof Character) {
+                sb.append(item);
+            }
         }
         return sb.toString();
     }
